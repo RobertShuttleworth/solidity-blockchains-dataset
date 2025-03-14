@@ -7,9 +7,13 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import scienceplots
 import scipy.stats as stats
 import seaborn as sns
 from scikit_posthocs import posthoc_dunn
+
+# plt.style.use(['science','ieee'])
+plt.style.use('ieee')
 
 ```
 
@@ -62,13 +66,333 @@ combined_stats = get_stats(combined_metrics_df)
 
 ```
 
+
+```python
+print('#################################################')
+print('overall')
+print(combined_stats)
+
+for blockchain, group in combined_metrics_df.groupby('Blockchain'):
+    print('#################################################')
+    print(blockchain)
+    print(get_stats(group))
+```
+
+    #################################################
+    overall
+            Contract Lines of Code  External Function Count  Inheritance Depth  \
+    mean                106.482882                 4.910463           0.851916   
+    std                 212.832993                10.960443           1.417819   
+    min                   1.000000                 0.000000           0.000000   
+    25%                  17.000000                 0.000000           0.000000   
+    median               53.000000                 1.000000           0.000000   
+    75%                 123.000000                 6.000000           1.000000   
+    max               13933.000000               470.000000          11.000000   
+    mode                 12.000000                 0.000000           0.000000   
+    
+            Internal Function Count  Max Local Variables  \
+    mean                   6.843356             4.205814   
+    std                   17.300010             3.127734   
+    min                    0.000000             0.000000   
+    25%                    0.000000             2.000000   
+    median                 2.000000             4.000000   
+    75%                    8.000000             6.000000   
+    max                 1184.000000           108.000000   
+    mode                   0.000000             4.000000   
+    
+            Mean Cyclomatic Complexity  Mean Local Variables  Number of Functions  \
+    mean                      0.674645              2.189069            14.586150   
+    std                       0.737741              1.415455            24.720232   
+    min                       0.000000              0.000000             0.000000   
+    25%                       0.000000              1.000000             3.000000   
+    median                    0.820000              2.050000             7.000000   
+    75%                       1.040000              3.000000            15.000000   
+    max                      29.000000             38.000000          1184.000000   
+    mode                      0.000000              1.000000             1.000000   
+    
+            Private Function Count  Public Function Count  State Variable Count  \
+    mean                  0.536200               2.296130              1.866199   
+    std                   1.619795               5.583016              5.764575   
+    min                   0.000000               0.000000              0.000000   
+    25%                   0.000000               0.000000              0.000000   
+    median                0.000000               0.000000              0.000000   
+    75%                   0.000000               1.000000              2.000000   
+    max                  32.000000             106.000000            271.000000   
+    mode                  0.000000               0.000000              0.000000   
+    
+            Total Cyclomatic Complexity  
+    mean                      13.241612  
+    std                       29.956682  
+    min                        0.000000  
+    25%                        0.000000  
+    median                     3.000000  
+    75%                       15.000000  
+    max                     2892.000000  
+    mode                       0.000000  
+    #################################################
+    arb
+            Contract Lines of Code  External Function Count  Inheritance Depth  \
+    mean                 95.089264                 5.601378           1.192218   
+    std                 175.124638                 9.504110           1.780319   
+    min                   1.000000                 0.000000           0.000000   
+    25%                  18.000000                 0.000000           0.000000   
+    median               50.000000                 2.000000           0.000000   
+    75%                 108.000000                 8.000000           2.000000   
+    max               10997.000000               373.000000          10.000000   
+    mode                 17.000000                 0.000000           0.000000   
+    
+            Internal Function Count  Max Local Variables  \
+    mean                   7.765720             4.484162   
+    std                   18.727472             2.945376   
+    min                    0.000000             0.000000   
+    25%                    0.000000             2.000000   
+    median                 3.000000             4.000000   
+    75%                    9.000000             6.000000   
+    max                 1184.000000           108.000000   
+    mode                   0.000000             4.000000   
+    
+            Mean Cyclomatic Complexity  Mean Local Variables  Number of Functions  \
+    mean                      0.651906              2.270774            16.564378   
+    std                       0.731563              1.362342            26.457697   
+    min                       0.000000              0.000000             0.000000   
+    25%                       0.000000              1.330000             3.000000   
+    median                    0.790000              2.160000             8.000000   
+    75%                       1.000000              3.000000            19.000000   
+    max                      27.000000             17.000000          1184.000000   
+    mode                      0.000000              2.000000             1.000000   
+    
+            Private Function Count  Public Function Count  State Variable Count  \
+    mean                  0.408319               2.788961              2.264045   
+    std                   1.328851               6.112084              6.907590   
+    min                   0.000000               0.000000              0.000000   
+    25%                   0.000000               0.000000              0.000000   
+    median                0.000000               0.000000              0.000000   
+    75%                   0.000000               3.000000              2.000000   
+    max                  27.000000              85.000000            269.000000   
+    mode                  0.000000               0.000000              0.000000   
+    
+            Total Cyclomatic Complexity  
+    mean                      14.211865  
+    std                       35.668146  
+    min                        0.000000  
+    25%                        0.000000  
+    median                     4.000000  
+    75%                       16.000000  
+    max                     2892.000000  
+    mode                       0.000000  
+    #################################################
+    eth
+            Contract Lines of Code  External Function Count  Inheritance Depth  \
+    mean                100.696024                 4.817489           0.632393   
+    std                 191.788504                 9.443872           1.127022   
+    min                   1.000000                 0.000000           0.000000   
+    25%                  17.000000                 0.000000           0.000000   
+    median               44.000000                 1.000000           0.000000   
+    75%                 111.000000                 6.000000           1.000000   
+    max               13244.000000               371.000000          11.000000   
+    mode                  5.000000                 0.000000           0.000000   
+    
+            Internal Function Count  Max Local Variables  \
+    mean                   5.434175             4.241696   
+    std                   12.948462             3.172024   
+    min                    0.000000             0.000000   
+    25%                    0.000000             2.000000   
+    median                 2.000000             4.000000   
+    75%                    7.000000             6.000000   
+    max                  385.000000            39.000000   
+    mode                   0.000000             4.000000   
+    
+            Mean Cyclomatic Complexity  Mean Local Variables  Number of Functions  \
+    mean                      0.687110              2.219033            12.960027   
+    std                       0.722708              1.406319            20.184514   
+    min                       0.000000              0.000000             0.000000   
+    25%                       0.000000              1.000000             3.000000   
+    median                    0.890000              2.100000             6.000000   
+    75%                       1.080000              3.000000            13.000000   
+    max                      13.000000             14.000000           385.000000   
+    mode                      0.000000              1.000000             1.000000   
+    
+            Private Function Count  Public Function Count  State Variable Count  \
+    mean                  0.603584               2.104779              2.143517   
+    std                   1.856593               5.140855              7.137326   
+    min                   0.000000               0.000000              0.000000   
+    25%                   0.000000               0.000000              0.000000   
+    median                0.000000               0.000000              0.000000   
+    75%                   0.000000               1.000000              1.000000   
+    max                  27.000000             106.000000            271.000000   
+    mode                  0.000000               0.000000              0.000000   
+    
+            Total Cyclomatic Complexity  
+    mean                      11.734234  
+    std                       23.321817  
+    min                        0.000000  
+    25%                        0.000000  
+    median                     3.000000  
+    75%                       13.000000  
+    max                      384.000000  
+    mode                       0.000000  
+    #################################################
+    ftm
+            Contract Lines of Code  External Function Count  Inheritance Depth  \
+    mean                129.012569                 4.448368           0.565325   
+    std                 220.750711                 9.373081           1.019450   
+    min                   1.000000                 0.000000           0.000000   
+    25%                  17.000000                 0.000000           0.000000   
+    median               67.000000                 1.000000           0.000000   
+    75%                 152.000000                 6.000000           1.000000   
+    max               13933.000000               470.000000           9.000000   
+    mode                 10.000000                 0.000000           0.000000   
+    
+            Internal Function Count  Max Local Variables  \
+    mean                   6.559865             4.106899   
+    std                   15.057863             3.338562   
+    min                    0.000000             0.000000   
+    25%                    0.000000             2.000000   
+    median                 2.000000             4.000000   
+    75%                    8.000000             5.000000   
+    max                  385.000000            54.000000   
+    mode                   0.000000             4.000000   
+    
+            Mean Cyclomatic Complexity  Mean Local Variables  Number of Functions  \
+    mean                      0.643924              2.156687            13.238643   
+    std                       0.723701              1.421859            20.113817   
+    min                       0.000000              0.000000             0.000000   
+    25%                       0.000000              1.000000             3.000000   
+    median                    0.730000              2.000000             8.000000   
+    75%                       1.040000              3.000000            17.000000   
+    max                      29.000000             38.000000           470.000000   
+    mode                      0.000000              1.000000             6.000000   
+    
+            Private Function Count  Public Function Count  State Variable Count  \
+    mean                  0.528597               1.701813              1.322769   
+    std                   1.725519               4.613617              3.692247   
+    min                   0.000000               0.000000              0.000000   
+    25%                   0.000000               0.000000              0.000000   
+    median                0.000000               0.000000              0.000000   
+    75%                   0.000000               0.000000              1.000000   
+    max                  27.000000              71.000000            132.000000   
+    mode                  0.000000               0.000000              0.000000   
+    
+            Total Cyclomatic Complexity  
+    mean                      12.485621  
+    std                       23.920171  
+    min                        0.000000  
+    25%                        0.000000  
+    median                     2.000000  
+    75%                       15.000000  
+    max                      384.000000  
+    mode                       0.000000  
+    #################################################
+    opt
+            Contract Lines of Code  External Function Count  Inheritance Depth  \
+    mean                110.796886                 4.749340           0.650580   
+    std                 328.033573                18.086118           1.136504   
+    min                   1.000000                 0.000000           0.000000   
+    25%                  18.000000                 0.000000           0.000000   
+    median               55.000000                 1.000000           0.000000   
+    75%                 126.000000                 5.000000           1.000000   
+    max               13933.000000               460.000000           8.000000   
+    mode                 21.000000                 0.000000           0.000000   
+    
+            Internal Function Count  Max Local Variables  \
+    mean                   6.802502             3.953564   
+    std                   20.559428             3.126769   
+    min                    0.000000             0.000000   
+    25%                    0.000000             1.000000   
+    median                 2.000000             4.000000   
+    75%                    8.000000             5.000000   
+    max                  385.000000            65.000000   
+    mode                   0.000000             1.000000   
+    
+            Mean Cyclomatic Complexity  Mean Local Variables  Number of Functions  \
+    mean                      0.714576              2.126846            13.793659   
+    std                       0.817814              1.508970            29.766062   
+    min                       0.000000              0.000000             0.000000   
+    25%                       0.000000              1.000000             2.000000   
+    median                    0.940000              2.000000             7.000000   
+    75%                       1.150000              3.000000            13.000000   
+    max                      27.000000             18.000000           460.000000   
+    mode                      0.000000              1.000000             1.000000   
+    
+            Private Function Count  Public Function Count  State Variable Count  \
+    mean                  0.640459               1.601358              1.538640   
+    std                   1.699429               4.775666              4.346175   
+    min                   0.000000               0.000000              0.000000   
+    25%                   0.000000               0.000000              0.000000   
+    median                0.000000               0.000000              0.000000   
+    75%                   0.000000               1.000000              1.000000   
+    max                  32.000000              80.000000            168.000000   
+    mode                  0.000000               0.000000              0.000000   
+    
+            Total Cyclomatic Complexity  
+    mean                      12.528792  
+    std                       28.296246  
+    min                        0.000000  
+    25%                        0.000000  
+    median                     3.000000  
+    75%                       15.000000  
+    max                      384.000000  
+    mode                       0.000000  
+    #################################################
+    pol
+            Contract Lines of Code  External Function Count  Inheritance Depth  \
+    mean                107.048053                 4.185107           0.788435   
+    std                 175.914326                 9.167650           1.186480   
+    min                   1.000000                 0.000000           0.000000   
+    25%                  17.000000                 0.000000           0.000000   
+    median               56.000000                 1.000000           0.000000   
+    75%                 119.000000                 6.000000           1.000000   
+    max                2986.000000               373.000000           9.000000   
+    mode                  9.000000                 0.000000           0.000000   
+    
+            Internal Function Count  Max Local Variables  \
+    mean                   6.415460             3.901338   
+    std                   16.770051             3.171772   
+    min                    0.000000             0.000000   
+    25%                    0.000000             2.000000   
+    median                 3.000000             4.000000   
+    75%                    8.000000             5.000000   
+    max                  384.000000            38.000000   
+    mode                   0.000000             4.000000   
+    
+            Mean Cyclomatic Complexity  Mean Local Variables  Number of Functions  \
+    mean                      0.714413              2.078881            13.872402   
+    std                       0.710171              1.439465            24.391023   
+    min                       0.000000              0.000000             0.000000   
+    25%                       0.000000              1.000000             2.000000   
+    median                    0.920000              2.000000             7.000000   
+    75%                       1.110000              2.710000            14.000000   
+    max                      11.000000             14.000000           385.000000   
+    mode                      0.000000              1.000000             1.000000   
+    
+            Private Function Count  Public Function Count  State Variable Count  \
+    mean                  0.674623               2.597212              1.657262   
+    std                   1.755464               6.148184              4.506337   
+    min                   0.000000               0.000000              0.000000   
+    25%                   0.000000               0.000000              0.000000   
+    median                0.000000               0.000000              0.000000   
+    75%                   0.000000               1.000000              1.000000   
+    max                  27.000000             106.000000            168.000000   
+    mode                  0.000000               0.000000              0.000000   
+    
+            Total Cyclomatic Complexity  
+    mean                      13.804699  
+    std                       28.786064  
+    min                        0.000000  
+    25%                        0.000000  
+    median                     4.000000  
+    75%                       15.000000  
+    max                      384.000000  
+    mode                       0.000000  
+    
+
 ## Metric Boxplots
 
 
 ```python
 def create_boxplot(df, column, title, show_outliers=True):
     fig = plt.figure()
-    plt.title(title)
+    # plt.title(title)
 
     data = [df[column]]
     labels = ['overall']
@@ -76,6 +400,8 @@ def create_boxplot(df, column, title, show_outliers=True):
         data.append(group[column])
         labels.append(name)
     plt.boxplot(data, tick_labels=labels, showfliers=show_outliers)
+    plt.ylabel('Lines of Code')
+    plt.xlabel('Blockchain')
     plt.show()
 
 for metric in combined_stats.columns:
@@ -85,145 +411,145 @@ for metric in combined_stats.columns:
 
 
     
-![png](Analysis_files/Analysis_7_0.png)
+![png](Analysis_files/Analysis_8_0.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_1.png)
+![png](Analysis_files/Analysis_8_1.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_2.png)
+![png](Analysis_files/Analysis_8_2.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_3.png)
+![png](Analysis_files/Analysis_8_3.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_4.png)
+![png](Analysis_files/Analysis_8_4.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_5.png)
+![png](Analysis_files/Analysis_8_5.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_6.png)
+![png](Analysis_files/Analysis_8_6.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_7.png)
+![png](Analysis_files/Analysis_8_7.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_8.png)
+![png](Analysis_files/Analysis_8_8.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_9.png)
+![png](Analysis_files/Analysis_8_9.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_10.png)
+![png](Analysis_files/Analysis_8_10.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_11.png)
+![png](Analysis_files/Analysis_8_11.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_12.png)
+![png](Analysis_files/Analysis_8_12.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_13.png)
+![png](Analysis_files/Analysis_8_13.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_14.png)
+![png](Analysis_files/Analysis_8_14.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_15.png)
+![png](Analysis_files/Analysis_8_15.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_16.png)
+![png](Analysis_files/Analysis_8_16.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_17.png)
+![png](Analysis_files/Analysis_8_17.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_18.png)
+![png](Analysis_files/Analysis_8_18.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_19.png)
+![png](Analysis_files/Analysis_8_19.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_20.png)
+![png](Analysis_files/Analysis_8_20.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_21.png)
+![png](Analysis_files/Analysis_8_21.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_22.png)
+![png](Analysis_files/Analysis_8_22.png)
     
 
 
 
     
-![png](Analysis_files/Analysis_7_23.png)
+![png](Analysis_files/Analysis_8_23.png)
     
 
 
@@ -274,73 +600,7 @@ for metric in combined_stats.columns:
 
 
     
-![png](Analysis_files/Analysis_9_0.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_1.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_2.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_3.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_4.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_5.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_6.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_7.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_8.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_9.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_10.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_9_11.png)
+![png](Analysis_files/Analysis_10_0.png)
     
 
 
@@ -360,87 +620,6 @@ patterns = patterns.drop('Permissionless')
 
 ```
 
-### Point-Biserial Correlation
-
-
-```python
-def point_biserial_corr(blockchain = None):
-    corr_matrix = pd.DataFrame(index=metrics, columns=patterns)
-
-    title = "Point-Biserial Correlation Between Software Metrics and Micropatterns"
-
-    if blockchain:
-        # complete analysis for a specific blockchain
-        blockchain_metrics_df = combined_metrics_df[combined_metrics_df['Blockchain'] == blockchain]
-        blockchain_patterns_df = combined_patterns_df[combined_patterns_df['Blockchain'] == blockchain]
-        title = f"{title} (overall)"
-    else:
-        # complete analysis for a specific blockchain
-        blockchain_metrics_df = combined_metrics_df
-        blockchain_patterns_df = combined_patterns_df
-        title = f"{title} ({blockchain})"
-
-    for pattern in patterns:
-        for metric in metrics:
-            r, p = stats.pointbiserialr(blockchain_metrics_df[metric], blockchain_patterns_df[pattern])
-            corr_matrix.loc[metric, pattern] = r
-
-    corr_matrix = corr_matrix.astype(float)
-
-    # Plot correlation matrix as a heatmap
-    plt.figure(figsize=(10, 6))
-    sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", center=0, linewidths=0.5)
-
-    # Labels and title
-    plt.title(title)
-    plt.xlabel("Micropatterns")
-    plt.ylabel("Software Metrics")
-
-    # Show the plot
-    plt.show()
-
-point_biserial_corr()
-for blockchain in blockchains:
-    point_biserial_corr(blockchain)
-
-```
-
-
-    
-![png](Analysis_files/Analysis_14_0.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_14_1.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_14_2.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_14_3.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_14_4.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_14_5.png)
-    
-
-
 ### Spearman
 
 
@@ -452,16 +631,18 @@ def spearman_corr(blockchain=None):
     """
     corr_matrix = pd.DataFrame(index=metrics, columns=patterns)
 
-    title = "Spearman Correlation Between Software Metrics and Micropatterns"
+    title = "Spearman Correlation Between Software Metrics and Micro-patterns"
 
     if blockchain:
         blockchain_metrics_df = combined_metrics_df[combined_metrics_df['Blockchain'] == blockchain]
         blockchain_patterns_df = combined_patterns_df[combined_patterns_df['Blockchain'] == blockchain]
         title = f"{title} ({blockchain})"
+        print(title)
     else:
         blockchain_metrics_df = combined_metrics_df
         blockchain_patterns_df = combined_patterns_df
         title = f"{title} (overall)"
+        print(title)
 
     for pattern in patterns:
         for metric in metrics:
@@ -469,12 +650,13 @@ def spearman_corr(blockchain=None):
             corr_matrix.loc[metric, pattern] = r
 
     corr_matrix = corr_matrix.astype(float)
+    print(corr_matrix)
 
     # Plot correlation matrix
     plt.figure(figsize=(10, 6))
     sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="coolwarm", center=0, linewidths=0.5)
     plt.title(title)
-    plt.xlabel("Micropatterns")
+    plt.xlabel("Micro-patterns")
     plt.ylabel("Software Metrics")
     plt.show()
 
@@ -484,42 +666,6 @@ for blockchain in blockchains:
     spearman_corr(blockchain)
 
 ```
-
-
-    
-![png](Analysis_files/Analysis_16_0.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_16_1.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_16_2.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_16_3.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_16_4.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_16_5.png)
-    
-
 
 ### Kruskal-Wallis Test
 
@@ -542,20 +688,6 @@ def kruskal_wallis():
 kw_metrics = kruskal_wallis()
 
 ```
-
-    Contract Lines of Code: Kruskal-Wallis H = 1517.30, p = 0.0000e+00 (Non-parametric)
-    External Function Count: Kruskal-Wallis H = 4188.78, p = 0.0000e+00 (Non-parametric)
-    Inheritance Depth: Kruskal-Wallis H = 8233.39, p = 0.0000e+00 (Non-parametric)
-    Internal Function Count: Kruskal-Wallis H = 1011.38, p = 1.2219e-217 (Non-parametric)
-    Max Local Variables: Kruskal-Wallis H = 4437.89, p = 0.0000e+00 (Non-parametric)
-    Mean Cyclomatic Complexity: Kruskal-Wallis H = 1273.76, p = 1.6278e-274 (Non-parametric)
-    Mean Local Variables: Kruskal-Wallis H = 1716.99, p = 0.0000e+00 (Non-parametric)
-    Number of Functions: Kruskal-Wallis H = 1608.55, p = 0.0000e+00 (Non-parametric)
-    Private Function Count: Kruskal-Wallis H = 2900.88, p = 0.0000e+00 (Non-parametric)
-    Public Function Count: Kruskal-Wallis H = 3703.15, p = 0.0000e+00 (Non-parametric)
-    State Variable Count: Kruskal-Wallis H = 3534.40, p = 0.0000e+00 (Non-parametric)
-    Total Cyclomatic Complexity: Kruskal-Wallis H = 710.17, p = 2.1895e-152 (Non-parametric)
-    
 
 ### Dunn's Test
 
@@ -583,75 +715,3 @@ def dunns_test():
 
 dunns_test()
 ```
-
-
-    
-![png](Analysis_files/Analysis_20_0.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_1.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_2.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_3.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_4.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_5.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_6.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_7.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_8.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_9.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_10.png)
-    
-
-
-
-    
-![png](Analysis_files/Analysis_20_11.png)
-    
-
